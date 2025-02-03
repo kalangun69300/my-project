@@ -1,0 +1,36 @@
+pipeline {
+    agent any
+
+    environment {
+        IMAGE_NAME = "my-project"
+        IMAGE_TAG = "latest"
+        GIT_URL = "https://github.com/kalangun69300/my-project.git"
+    }
+
+    stages {
+        stage('Pull From Git') {
+            steps {
+                git branch: 'main', url: GIT_URL
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t $IMAGE_NAME:$IMAGE_TAG .'
+            }
+        }
+
+        stage('Run Container') {
+            steps {
+                sh 'docker stop $IMAGE_NAME || true && docker rm $IMAGE_NAME || true'
+                sh 'docker run -d -p 3000:3000 --name $IMAGE_NAME $IMAGE_NAME'
+            }
+        }
+
+        stage('Success') {
+            steps {
+                echo 'Deploy Successfully'
+            }
+        }
+    }
+}
