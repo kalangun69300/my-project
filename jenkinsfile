@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Pull From Git') {
             steps {
-                git branch: 'main', url: GIT_URL
+                git branch: 'main', url: 'https://github.com/kalangun69300/my-project.git'
             }
         }
 
