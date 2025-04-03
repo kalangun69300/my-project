@@ -1,21 +1,19 @@
 pipeline {
     agent { label 'slave01' }
 
-    stage('SonarQube Analysis') {
+    stages {
+        stage('SonarQube Analysis') {
             steps {
                 script {
                     def scannerHome = tool 'sonarqube'
                     withSonarQubeEnv() {
-
                         def sonarProjectKey = 'my-project'
-                        
                         sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=${sonarProjectKey}"
                     }
                 }
             }
         }
 
-    stages {
         stage('Build Docker Image') {
             steps {
                 script {
