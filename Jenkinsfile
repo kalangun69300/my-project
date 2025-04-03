@@ -1,7 +1,7 @@
 pipeline {
     agent {
   label 'slave01'
-}
+    }
 
     environment {
         IMAGE_NAME = "my-project"
@@ -21,7 +21,7 @@ pipeline {
             }
         }
     }
-}
+
 
 
 
