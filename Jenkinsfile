@@ -1,6 +1,6 @@
 pipeline {
     agent {
-  label 'slave01'
+        label 'slave01'
     }
 
     environment {
@@ -8,12 +8,12 @@ pipeline {
         IMAGE_TAG = "latest"
     }
 
+    stages {
         stage('Build Docker Image') {
             steps {
                 sh 'docker build -t $IMAGE_NAME:$IMAGE_TAG .'
             }
         }
-
 
         stage('Success') {
             steps {
@@ -21,11 +21,4 @@ pipeline {
             }
         }
     }
-
-
-
-
-
-
-
-
+}
