@@ -8,13 +8,6 @@ pipeline {
         IMAGE_TAG = "latest"
     }
 
-    stages {
-        stage('Pull From Git') {
-            steps {
-                git branch: 'main', url: 'https://github.com/kalangun69300/my-project.git'
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
                 sh 'docker build -t $IMAGE_NAME:$IMAGE_TAG .'
