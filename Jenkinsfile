@@ -18,7 +18,7 @@ pipeline {
                     sh "docker rm my-container || true"
                     
                     // Deploy new container
-                    sh "docker run -d --name my-container -p 5000:5000 my-project:latest" 
+                    sh "docker run -d --name my-container -p 3000:3000 my-project:latest" 
                 }
             }
         }
