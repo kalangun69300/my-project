@@ -18,7 +18,7 @@ pipeline {
                     sh "docker rm my-container || true"
                     
                     // Deploy new container
-                    sh "docker run -d --name my-container -p 8081:8081 my-project:latest" 
+                    sh "docker run -d --name my-container -p 8080:8080 my-project:latest" 
                 }
             }
         }
