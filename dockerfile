@@ -17,7 +17,7 @@ COPY . .
 RUN npm run build
 
 # เปิด Port 3000 (ของ Vite) 
-EXPOSE 8080
+EXPOSE 3002
 
 # คำสั่งรันแอปพลิเคชัน
-CMD ["npx", "serve", "-s", "dist", "-l", "0.0.0.0:8080"]
+CMD ["npx", "serve", "-s", "dist", "-l", "0.0.0.0:3002"]
