@@ -20,4 +20,4 @@ RUN npm run build
 EXPOSE 3002
 
 # คำสั่งรันแอปพลิเคชัน
-CMD ["npx", "serve", "-s", "dist"]
+CMD ["npx", "serve", "-s", "dist", "--port", "0.0.0.0:3002"]
