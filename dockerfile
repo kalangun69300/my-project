@@ -17,7 +17,7 @@ COPY . .
 RUN npm run build
 
 # เปิด Port 3000 (ของ Vite) 
-EXPOSE 3000
+EXPOSE 8080
 
 # คำสั่งรันแอปพลิเคชัน
 ENTRYPOINT ["npx", "serve", "-s", "dist"]
