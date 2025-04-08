@@ -20,4 +20,4 @@ RUN npm run build
 EXPOSE 3000
 
 # คำสั่งรันแอปพลิเคชัน
-CMD ["npx", "serve", "-s", "dist"]
+ENTRYPOINT ["npx", "serve", "-s", "dist"]
