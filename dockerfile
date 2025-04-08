@@ -20,4 +20,4 @@ RUN npm run build
 EXPOSE 8080
 
 # คำสั่งรันแอปพลิเคชัน
-CMD ["npx", "serve", "-s", "dist"]
+CMD ["npx", "serve", "-s", "dist", "-l", "0.0.0.0:8080"]
