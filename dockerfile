@@ -5,7 +5,7 @@ FROM node:18
 WORKDIR /app
 
 # คัดลอกไฟล์ package.json และ package-lock.json ก่อน
-COPY package*.json ./
+#COPY package*.json ./
 
 # ติดตั้ง Dependencies
 RUN npm ci
