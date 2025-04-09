@@ -20,7 +20,7 @@ RUN npm run build
 EXPOSE 8080
 
 # คำสั่งรันแอปพลิเคชันด้วย serve ที่พอร์ต 8080
-ENTRYPOINT ["npx", "serve", "-s", "dist"]
+ENTRYPOINT ["npx", "serve", "-s", "dist", "-l", "8080"]
 
 # กำหนด Health Check เพื่อตรวจสอบว่าแอปทำงานอยู่หรือไม่
 HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
