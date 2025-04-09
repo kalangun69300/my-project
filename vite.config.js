@@ -5,6 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: {
-    port: 8080, // กำหนดพอร์ตที่ต้องการ
+    host: '0.0.0.0',  // ทำให้สามารถเข้าถึงจากทุก IP
+    port: 8080,        // หรือพอร์ตที่คุณต้องการ
   },
 })
