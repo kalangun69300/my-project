@@ -16,8 +16,12 @@ COPY . .
 # Build แอป (ใช้ Vite)
 RUN npm run build
 
-# เปิด Port 3000 (ของ Vite) 
+# เปิด Port 8080
 EXPOSE 3002
 
-# คำสั่งรันแอปพลิเคชัน
+# คำสั่งรันแอปพลิเคชันด้วย serve ที่พอร์ต 8080
 CMD ["npx", "serve", "-s", "dist"]
+
+# กำหนด Health Check เพื่อตรวจสอบว่าแอปทำงานอยู่หรือไม่
+HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
+  CMD curl --silent --fail http://192.168.172.115:3002 || exit 1
