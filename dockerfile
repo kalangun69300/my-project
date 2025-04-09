@@ -17,7 +17,7 @@ COPY . .
 RUN npm run build
 
 # เปิด Port 8080
-EXPOSE 8080 8080
+EXPOSE 8080
 
 # คำสั่งรันแอปพลิเคชันด้วย serve ที่พอร์ต 8080
 CMD ["npx", "serve", "-s", "dist"]
