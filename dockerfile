@@ -24,4 +24,4 @@ CMD ["npx", "serve", "-s", "dist"]
 
 # กำหนด Health Check เพื่อตรวจสอบว่าแอปทำงานอยู่หรือไม่
 HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
-  CMD curl --silent --fail http://192.168.172.115:8080 || exit 1
+  CMD curl --silent --fail http://localhost:8080 || exit 1
