@@ -7,11 +7,11 @@ WORKDIR /app
 # คัดลอกไฟล์ package.json และ package-lock.json ก่อน
 #COPY package*.json ./
 
-# ติดตั้ง Dependencies
-RUN npm ci
-
 # คัดลอกไฟล์ทั้งหมดไปที่ Container
 COPY . .
+
+# ติดตั้ง Dependencies
+RUN npm ci
 
 # Build แอป (ใช้ Vite)
 RUN npm run build
