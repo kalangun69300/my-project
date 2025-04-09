@@ -18,7 +18,7 @@ pipeline {
                     sh "docker rm my-container || true"
                     
                     // Deploy new container
-                    sh "docker run -d --name my-container -p 3002:3002 my-project:latest" 
+                    sh "docker run -d --name my-container -p 0.0.0.0.:3002:3002 my-project:latest" 
                 }
             }
         }
