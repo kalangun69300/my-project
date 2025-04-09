@@ -17,11 +17,11 @@ COPY . .
 RUN npm run build
 
 # เปิด Port 8080
-EXPOSE 3002 3002
+EXPOSE 8080 8080
 
 # คำสั่งรันแอปพลิเคชันด้วย serve ที่พอร์ต 8080
 CMD ["npx", "serve", "-s", "dist"]
 
 # กำหนด Health Check เพื่อตรวจสอบว่าแอปทำงานอยู่หรือไม่
 HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
-  CMD curl --silent --fail http://192.168.172.115:3002 || exit 1
+  CMD curl --silent --fail http://192.168.172.115:8080 || exit 1
