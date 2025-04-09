@@ -5,9 +5,6 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-<<<<<<< HEAD
-                    sh "docker build -t my-project:latest ."
-=======
                     sh "docker build -t kalangun/my-project:latest ."
                 }
             }
@@ -27,7 +24,6 @@ pipeline {
             steps {
                 script {
                     sh "docker push kalangun/my-project:latest"
->>>>>>> parent of c13f104 (test pipeline v2)
                 }
             }
         }
