@@ -37,7 +37,7 @@ pipeline {
         stage('Deploy Docker Container') {
             steps {
                 script {
-                    // หยุดและลบ container เก่า
+                    // หยุด,ลบ container เก่า
                     sh "docker stop my-container || true"
                     sh "docker rm my-container || true"
                     // รัน container ใหม่
