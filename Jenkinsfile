@@ -2,25 +2,26 @@ pipeline {
     agent { label 'slave01' }
 
     environment {
-        DOCKER_IMAGE = "kalangun/my-project:latest"
-        DOCKER_USER = "kalangun"
-        DOCKER_PASS = "netsiri69300"
+        DOCKER_IMAGE = "hubdc.dso.local/my-project:latest"
     }
 
     stages {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh "docker build -t ${DOCKER_IMAGE} ." // สร้าง Docker image
+                    sh "docker build -t ${DOCKER_IMAGE} ." 
                 }
             }
         }
 
-        stage('Login to Docker Hub') {
+        stage('Login to Harbor') {
             steps {
                 script {
-                    // Login Docker Hub 
-                    sh "echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin"
+                    // ใช้ credentials
+                    withCredentials([usernamePassword(credentialsId: 'harborhub', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
+                        // Login Harbor
+                        sh "echo $DOCKER_PASS | docker login hubdc.dso.local -u $DOCKER_USER --password-stdin"
+                    }
                 }
             }
         }
@@ -28,7 +29,6 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    // Push Docker image ขึ้น Docker Hub
                     sh "docker push ${DOCKER_IMAGE}"
                 }
             }
@@ -37,10 +37,9 @@ pipeline {
         stage('Deploy Docker Container') {
             steps {
                 script {
-                    // หยุด,ลบ container เก่า
                     sh "docker stop my-container || true"
                     sh "docker rm my-container || true"
-                    // รัน container ใหม่
+                    // รัน container ใหม่จาก image ที่เพิ่ง push
                     sh "docker run -d --name my-container -p 8080:8080 ${DOCKER_IMAGE}"
                 }
             }
