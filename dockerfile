@@ -1,5 +1,5 @@
 # ใช้ Node.js เป็น Base Image
-FROM node:23
+FROM hubdc.dso.local/test-image/node:23
 
 # กำหนด Working Directory
 WORKDIR /app 
