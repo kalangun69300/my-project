@@ -2,7 +2,7 @@
 FROM node:23
 
 # กำหนด Working Directory
-WORKDIR /app
+WORKDIR /app 
 
 # คัดลอกไฟล์ package.json และ package-lock.json ก่อน
 COPY package*.json ./
