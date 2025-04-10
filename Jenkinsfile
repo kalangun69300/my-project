@@ -2,14 +2,14 @@ pipeline {
     agent { label 'slave01' }
 
     environment {
-        DOCKER_IMAGE = "hubdc.dso.local/test-image:latest"
+        DOCKER_IMAGE = "hubdc.dso.local/test-image/node:latest" 
     }
 
     stages {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh "docker build -t ${DOCKER_IMAGE} ." 
+                    sh "docker build -t ${DOCKER_IMAGE} ."
                 }
             }
         }
@@ -19,7 +19,7 @@ pipeline {
                 script {
                     // ใช้ credentials 
                     withCredentials([usernamePassword(credentialsId: 'harborhub', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
-                        // Login harbor
+                        // Login Harbor 
                         sh "echo $DOCKER_PASS | docker login hubdc.dso.local -u $DOCKER_USER --password-stdin"
                     }
                 }
