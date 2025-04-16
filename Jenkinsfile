@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = "hubdc.dso.local/test-image/node:latest" 
+        
     }
 
     stages {
@@ -20,8 +21,8 @@ pipeline {
                     // ใช้ credentials 
                     withCredentials([usernamePassword(credentialsId: 'harborhub', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
                         // Login Harbor 
-                        //sh "echo $DOCKER_PASS | docker login hubdc.dso.local -u $DOCKER_USER --password-stdin"
-                        sh "docker login hubdc.dso.local -u $DOCKER_USER -p $DOCKER_PASS"
+                        sh "echo $DOCKER_PASS | docker login hubdc.dso.local -u $DOCKER_USER --password-stdin"
+                        //sh "docker login hubdc.dso.local -u $DOCKER_USER -p $DOCKER_PASS"
 
                     }
                 }

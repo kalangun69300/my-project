@@ -13,6 +13,12 @@ RUN npm ci
 # คัดลอกไฟล์ทั้งหมดไปที่ Container
 COPY . .
 
+# เปลี่ยนเจ้าของไฟล์ทั้งหมดให้ user ที่จะใช้รัน container
+RUN chown -R 1000:1000 /app
+
+# เปลี่ยน user ที่รัน
+USER 1000:1000
+
 # Build แอป (ใช้ Vite)
 RUN npm run build
 
