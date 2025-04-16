@@ -26,7 +26,7 @@ RUN chown -R dsoadm01:dsoadm01 /app
 USER dsoadm01
 
 # ตั้ง HOME เพื่อให้ npm ใช้งานได้ (เช่นเขียน log ได้)
-ENV HOME=/home/dsoadm01
+#ENV HOME=/home/dsoadm01
 
 # เปิด Port 8080
 EXPOSE 8080
