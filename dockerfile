@@ -29,4 +29,4 @@ USER dsoadm01
 EXPOSE 8080
 
 # คำสั่งรันแอปพลิเคชันด้วย serve ที่พอร์ต 8080
-ENTRYPOINT ["npx", "serve", "-s", "dist", "-l", "8080"]
+ENTRYPOINT ["npx", "serve", "-s", "dist", "-l", "8080", "sleep", "10"]

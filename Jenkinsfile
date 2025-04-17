@@ -44,8 +44,8 @@ pipeline {
             steps {
                 script {
                     // ใช้ Choice Parameter เพื่อกำหนดระยะเวลาในการรัน container
-                    if (params.RUN_DURATION == 'Run the container for 10 minutes') {
-                        sh "docker run --rm -d --name test-pipeline-gun -p 8080:8080 sleep ${DOCKER_IMAGE} 180"
+                    if (params.choices == 'Run the container for 3 minutes') {
+                        sh "docker run --rm --entrypoint sleep -d --name test-pipeline-gun -p 8080:8080 ${DOCKER_IMAGE} 30"
                     } else {
                         sh "docker run --rm -d --name test-pipeline-gun -p 8080:8080 ${DOCKER_IMAGE}"
                     }
