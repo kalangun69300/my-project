@@ -2,7 +2,7 @@ pipeline {
     agent { label 'slave01' }
 
     parameters {
-        choice(name: 'RUN_DURATION', choices: ['Run the container for 3 minutes', 'Keep the container running'], description: 'Select the duration for which the container should run')
+        choice(name: 'choices', choices: ['Run the container for 3 minutes', 'Keep the container running'], description: 'Select the duration for which the container should run')
     }
 
     environment {
