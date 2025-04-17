@@ -39,8 +39,7 @@ pipeline {
         stage('Deploy Docker Container') {
             steps {
                 script {
-                    // รัน container ใหม่จาก image ที่เพิ่ง push และให้มันรันค้างไว้ 2 นาที
-                    sh "docker run --rm -d --name my-container -p 8080:8080 ${DOCKER_IMAGE} /bin/bash -c 'sleep 120'"
+                    sh "docker run --rm --entrypoint sleep -d --name test-pipeline-gun -p 8080:8080 ${DOCKER_IMAGE} 120"
                 }
             }
         }
