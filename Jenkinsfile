@@ -39,7 +39,8 @@ pipeline {
         stage('Deploy Docker Container') {
             steps {
                 script {
-                    sh "docker run --rm -d --name my-container -p 8080:8080 ${DOCKER_IMAGE} && sleep 120"
+                    // รัน container ใหม่จาก image ที่เพิ่ง push และให้ container รันค้างไว้ 2 นาที
+                    sh "docker run --rm -d --name my-container -p 8080:8080 ${DOCKER_IMAGE} /bin/bash -c 'sleep 120'"
                 }
             }
         }
