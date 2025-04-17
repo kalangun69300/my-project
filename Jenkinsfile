@@ -39,7 +39,7 @@ pipeline {
         stage('Deploy Docker Container') {
             steps {
                 script {
-                    sh "docker run --rm --entrypoint sleep -d --name test-pipeline-gun -p 8080:8080 ${DOCKER_IMAGE} 120"
+                    sh "docker run --rm --entrypoint sleep -d --name test-pipeline-gun -p 8080:8080 ${DOCKER_IMAGE} 180"
                 }
             }
         }
@@ -50,3 +50,4 @@ pipeline {
             }
         }
     }
+}
