@@ -39,7 +39,7 @@ pipeline {
         stage('Deploy Docker Container') {
             steps {
                 script {
-                    sh "docker run --rm -d --name my-container -p 8080:8080 ${DOCKER_IMAGE}"
+                    sh "docker run --rm -d --name my-container -p 8080:8080 ${DOCKER_IMAGE} && sleep 120"
                 }
             }
         }
