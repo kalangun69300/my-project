@@ -19,9 +19,9 @@ pipeline {
         stage('Login to Harbor') {
             steps {
                 script {
-                    // ใช้ credentials 
+                    // ใช้ credentials เพื่อ login ไปยัง Harbor
                     withCredentials([usernamePassword(credentialsId: 'harborhub', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
-                        // Login Harbor 
+                        // Login Harbor
                         sh "echo $DOCKER_PASS | docker login hubdc.dso.local -u $DOCKER_USER --password-stdin"
                     }
                 }
@@ -31,6 +31,7 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
+                    // Push Docker image ไปยัง Harbor โดยใช้ชื่อ image และ tag
                     sh "docker push ${DOCKER_IMAGE}"
                 }
             }
@@ -39,7 +40,6 @@ pipeline {
         stage('Deploy Docker Container') {
             steps {
                 script {
-                    // รัน container ใหม่จาก image ที่เพิ่ง push และให้ container รันค้างไว้ 2 นาที
                     sh "docker run --rm -d --name my-container -p 8080:8080 ${DOCKER_IMAGE} /bin/bash -c 'sleep 120'"
                 }
             }
