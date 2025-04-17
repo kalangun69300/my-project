@@ -2,7 +2,7 @@ pipeline {
     agent { label 'slave01' }
 
     environment {
-        IMAGE_NAME = "hubdc.dso.local/${JOB_NAME}"
+        IMAGE_NAME = "hubdc.dso.local/test-image/${JOB_NAME}"
         IMAGE_TAG = "${BUILD_NUMBER}"
         DOCKER_IMAGE = "${IMAGE_NAME}:${IMAGE_TAG}"
     }
@@ -31,7 +31,6 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    // Push Docker image ไปยัง Harbor โดยใช้ชื่อ image และ tag
                     sh "docker push ${DOCKER_IMAGE}"
                 }
             }
@@ -40,6 +39,7 @@ pipeline {
         stage('Deploy Docker Container') {
             steps {
                 script {
+                    // รัน container ใหม่จาก image ที่เพิ่ง push และให้มันรันค้างไว้ 2 นาที
                     sh "docker run --rm -d --name my-container -p 8080:8080 ${DOCKER_IMAGE} /bin/bash -c 'sleep 120'"
                 }
             }
