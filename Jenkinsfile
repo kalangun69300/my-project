@@ -1,6 +1,10 @@
 pipeline {
     agent { label 'slave01' }
 
+    parameters {
+        choice(name: 'RUN_DURATION', choices: ['Run the container for 10 minutes', 'Keep the container running'], description: 'Select the duration for which the container should run')
+    }
+
     environment {
         IMAGE_NAME = "hubdc.dso.local/test-image/${JOB_NAME}"
         IMAGE_TAG = "${BUILD_NUMBER}"
@@ -39,7 +43,12 @@ pipeline {
         stage('Deploy Docker Container') {
             steps {
                 script {
-                    sh "docker run --rm --entrypoint sleep -d --name test-pipeline-gun -p 8080:8080 ${DOCKER_IMAGE} 180"
+                    // ใช้ Choice Parameter เพื่อกำหนดระยะเวลาในการรัน container
+                    if (params.RUN_DURATION == 'Run the container for 10 minutes') {
+                        sh "docker run --rm -d --name test-pipeline-gun -p 8080:8080 sleep ${DOCKER_IMAGE} 180"
+                    } else {
+                        sh "docker run --rm -d --name test-pipeline-gun -p 8080:8080 ${DOCKER_IMAGE}"
+                    }
                 }
             }
         }
