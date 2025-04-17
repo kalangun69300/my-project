@@ -2,8 +2,9 @@ pipeline {
     agent { label 'slave01' }
 
     environment {
-        DOCKER_IMAGE = "hubdc.dso.local/test-image/node:latest" 
-        
+        IMAGE_NAME = "hubdc.dso.local/${JOB_NAME}"
+        IMAGE_TAG = "${BUILD_NUMBER}"
+        DOCKER_IMAGE = "${IMAGE_NAME}:${IMAGE_TAG}"
     }
 
     stages {
@@ -22,8 +23,6 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'harborhub', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
                         // Login Harbor 
                         sh "echo $DOCKER_PASS | docker login hubdc.dso.local -u $DOCKER_USER --password-stdin"
-                        //sh "docker login hubdc.dso.local -u $DOCKER_USER -p $DOCKER_PASS"
-
                     }
                 }
             }
@@ -40,10 +39,7 @@ pipeline {
         stage('Deploy Docker Container') {
             steps {
                 script {
-                    sh "docker stop my-container || true"
-                    sh "docker rm my-container || true"
-                    // รัน container ใหม่จาก image ที่เพิ่ง push
-                    sh "docker run -d --name my-container -p 8080:8080 ${DOCKER_IMAGE}"
+                    sh "docker run --rm -d --name my-container -p 8080:8080 ${DOCKER_IMAGE}"
                 }
             }
         }
