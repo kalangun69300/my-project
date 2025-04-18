@@ -32,5 +32,5 @@ EXPOSE 8080
 ENTRYPOINT ["npx", "serve", "-s", "dist", "-l", "8080"]
 
 # ตรวจ healthcheck
-HEALTHCHECK --interval=5s --timeout=3s --retries=3 \
+HEALTHCHECK --interval=10s --timeout=3s --retries=3 \
     CMD curl --fail http://localhost:8080/ || exit 1

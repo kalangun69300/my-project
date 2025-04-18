@@ -44,7 +44,7 @@ pipeline {
             steps {
                 script {
                     if (params.run_time == 'Run the container for 3 minutes') {
-                        sh "docker run --rm -d --entrypoint '' --name ${JOB_NAME} -p 8080:8080 ${DOCKER_IMAGE} sh -c 'npx serve -s dist -p 8080 && sleep 90'"
+                        sh "docker run --rm -d --entrypoint '' --name ${JOB_NAME} -p 8080:8080 ${DOCKER_IMAGE} sh -c "npx serve -s dist -p 8080 & sleep 30 && docker stop ${JOB_NAME}""
                     } else {
                         sh "docker run --rm -d --name ${JOB_NAME} -p 8080:8080 ${DOCKER_IMAGE}"
                     }
