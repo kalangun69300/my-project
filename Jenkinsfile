@@ -2,7 +2,7 @@ pipeline {
     agent { label 'slave01' }
 
     parameters {
-        choice(name: 'choices', choices: ['Run the container for 3 minutes', 'Keep the container running'], description: 'Select the duration for which the container should run')
+        choice(name: 'run_time', choices: ['Run the container for 3 minutes', 'Keep the container running'], description: 'Select the duration for which the container should run')
     }
 
     environment {
@@ -23,7 +23,7 @@ pipeline {
         stage('Login to Harbor') {
             steps {
                 script {
-                    // ใช้ credentials เพื่อ login ไปยัง Harbor
+                    // ใช้ credentials เพื่อ login ไป Harbor
                     withCredentials([usernamePassword(credentialsId: 'harborhub', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
                         // Login Harbor
                         sh "echo $DOCKER_PASS | docker login hubdc.dso.local -u $DOCKER_USER --password-stdin"
@@ -43,14 +43,13 @@ pipeline {
         stage('Deploy Docker Container') {
             steps {
                 script {
-                    // ใช้ Choice Parameter เพื่อกำหนดระยะเวลาในการรัน container
-                    if (params.choices == 'Run the container for 3 minutes') {
-                        sh "docker run --rm --entrypoint sleep -d --name test-pipeline-gun -p 8080:8080 ${DOCKER_IMAGE} 30"
-                        sh "docker inspect --format='{{.State.Health.Status}}' test-pipeline-gun"
-
+                    if (params.run_time == 'Run the container for 3 minutes') {
+                        sh "docker run --rm -d --entrypoint '' --name ${JOB_NAME} -p 8080:8080 ${DOCKER_IMAGE} sh -c 'npx serve -s dist -p 8080 && sleep 90'"
                     } else {
-                        sh "docker run --rm -d --name test-pipeline-gun -p 8080:8080 ${DOCKER_IMAGE}"
+                        sh "docker run --rm -d --name ${JOB_NAME} -p 8080:8080 ${DOCKER_IMAGE}"
                     }
+                    echo "Running healthcheck..."
+                    sh "docker inspect --format='{{.State.Health.Status}}' ${JOB_NAME}"
                 }
             }
         }
