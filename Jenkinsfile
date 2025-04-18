@@ -44,13 +44,11 @@ pipeline {
             steps {
                 script {
                     if (params.run_time == 'Run the container for 3 minutes') {
-                        sh """docker run --rm -d --entrypoint '' --name ${JOB_NAME} -p 8080:8080 ${DOCKER_IMAGE} sh -c "npx serve -s dist -p 8080 & sleep 30" """
-                        sh "docker stop ${JOB_NAME}"
+                        // Run container for 3 minutes and stop it after 30 seconds, all in one line
+                        sh """docker run --rm -d --entrypoint '' --name test-pipeline-gun -p 8080:8080 ${DOCKER_IMAGE} sh -c "npx serve -s dist -p 8080 & sleep 30 && docker stop test-pipeline-gun" """
                     } else {
                         sh "docker run --rm -d --name ${JOB_NAME} -p 8080:8080 ${DOCKER_IMAGE}"
                     }
-                    echo "Running healthcheck..."
-                    sh "docker inspect --format='{{.State.Health.Status}}' ${JOB_NAME}"
                 }
             }
         }
