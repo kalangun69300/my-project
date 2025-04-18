@@ -46,6 +46,8 @@ pipeline {
                     // ใช้ Choice Parameter เพื่อกำหนดระยะเวลาในการรัน container
                     if (params.choices == 'Run the container for 3 minutes') {
                         sh "docker run --rm --entrypoint sleep -d --name test-pipeline-gun -p 8080:8080 ${DOCKER_IMAGE} 30"
+                        sh "docker inspect --format='{{.State.Health.Status}}' test-pipeline-gun"
+
                     } else {
                         sh "docker run --rm -d --name test-pipeline-gun -p 8080:8080 ${DOCKER_IMAGE}"
                     }
