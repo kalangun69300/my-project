@@ -46,7 +46,7 @@ pipeline {
                     if (params.run_time == 'Run the container for 3 minutes') {
                         sh """docker run --rm -d --entrypoint '' --name test-pipeline-gun -p 8080:8080 ${DOCKER_IMAGE} sh -c "npx serve -s dist -p 8080 && sleep 30 && docker stop test-pipeline-gun" """
                     } else {
-                        sh "docker run --rm -d --name ${JOB_NAME} -p 8080:8080 ${DOCKER_IMAGE}"
+                        sh "docker run --rm -d --name test-pipeline-gun -p 8080:8080 ${DOCKER_IMAGE}"
                     }
                 }
             }

@@ -1,9 +1,6 @@
 # ใช้ Node.js เป็น Base Image
 FROM hubdc.dso.local/test-image/node:23
 
-# สร้าง user devsecops
-RUN adduser --uid 10001 --disabled-password --gecos "" --home /home/devsecops devsecops
-
 # กำหนด Working Directory
 WORKDIR /app 
 
@@ -18,12 +15,6 @@ COPY . .
 
 # Build แอป (ใช้ Vite)
 RUN npm run build
-
-# เปลี่ยน owner ของไฟล์
-RUN chown -R devsecops:devsecops /app
-
-# เปลี่ยน user สำหรับรัน container
-USER devsecops
 
 # เปิด Port 8080
 EXPOSE 8080
