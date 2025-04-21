@@ -2,7 +2,7 @@
 FROM hubdc.dso.local/test-image/node:23
 
 # สร้าง user dsoadm01
-RUN adduser --uid 10001 --disabled-password --gecos "" --home /home/dsoadm01 dsoadm01
+#RUN adduser --uid 10001 --disabled-password --gecos "" --home /home/dsoadm01 dsoadm01
 
 # กำหนด Working Directory
 WORKDIR /app 
@@ -20,10 +20,10 @@ COPY . .
 RUN npm run build
 
 # เปลี่ยน owner ของไฟล์
-RUN chown -R dsoadm01:dsoadm01 /app
+#RUN chown -R dsoadm01:dsoadm01 /app
 
 # เปลี่ยน user สำหรับรัน container
-USER dsoadm01
+#USER dsoadm01
 
 # เปิด Port 8080
 EXPOSE 8080
